@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ExporterVersion="0.1">
+	<ClassInstance ClassName="ProjectProperties" InstanceID="0">
+		<Field Name="GraphicsModule" Value="DirectX11" />
+		<Field Name="CameraPosition" Value="415;249" />
+	</ClassInstance>
+	<ClassInstance ClassName="EditorDrawNode" InstanceID="1178">
+		<Field Name="Position" Value="808;318" />
+		<Field Name="ContentType" Value="None" />
+		<Field Name="OutputCount" Value="0" />
+		<Field Name="Pass" Value="0" />
+		<Field Name="Technique" Value="0" />
+		<FieldContainer Name="OutputNodes" />
+		<FieldContainer Name="InputNodes">
+			<Field Name="Effect" Value="1203" />
+			<Field Name="Model" Value="1209" />
+			<Field Name="Blend State" Value="1215" />
+			<Field Name="Depth State" Value="1222" />
+			<Field Name="Rasterizer State" Value="1229" />
+			<Field Name="VariablesStart" Value="1191" />
+			<Field Name="ColorInputStart" Value="1197" />
+		</FieldContainer>
+	</ClassInstance>
+	<ClassInstance ClassName="EditorColorTargetOutputNode" InstanceID="1512">
+		<Field Name="Position" Value="1292;412" />
+		<Field Name="ContentType" Value="None" />
+		<Field Name="NodeSize" Value="286;311" />
+		<FieldContainer Name="OutputNodes" />
+		<FieldContainer Name="InputNodes">
+			<Field Name="Target" Value="1525" />
+		</FieldContainer>
+	</ClassInstance>
+	<ClassInstance ClassName="EditorPrimitiveNode" InstanceID="1980">
+		<Field Name="Position" Value="334;-8" />
+		<Field Name="ContentType" Value="None" />
+		<Field Name="Generator" Value="1" />
+		<Field Name="SegmentsLon" Value="22" />
+		<Field Name="SegmentsLat" Value="22" />
+		<FieldContainer Name="OutputNodes">
+			<Field Name="Model" Value="1209" />
+		</FieldContainer>
+		<FieldContainer Name="InputNodes" />
+	</ClassInstance>
+	<ClassInstance ClassName="EditorEffectNode" InstanceID="2541">
+		<Field Name="Position" Value="554;229" />
+		<Field Name="ContentType" Value="Effect" />
+		<Field Name="EffectPath" Value="Effects/HW12.fx" />
+		<FieldContainer Name="OutputNodes">
+			<Field Name="Effect" Value="1203" />
+		</FieldContainer>
+		<FieldContainer Name="InputNodes" />
+	</ClassInstance>
+</Project>

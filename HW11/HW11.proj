@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ExporterVersion="0.1">
+	<ClassInstance ClassName="ProjectProperties" InstanceID="0">
+		<Field Name="GraphicsModule" Value="DirectX11" />
+		<Field Name="CameraPosition" Value="534.733;180.012" />
+	</ClassInstance>
+	<ClassInstance ClassName="EditorDrawNode" InstanceID="1877">
+		<Field Name="Position" Value="618.907;336.984" />
+		<Field Name="ContentType" Value="None" />
+		<Field Name="OutputCount" Value="1" />
+		<Field Name="ColorOutput0" Value="4" />
+		<Field Name="Pass" Value="0" />
+		<Field Name="Technique" Value="0" />
+		<FieldContainer Name="OutputNodes">
+			<Field Name="SV_TARGET0" Value="3076" />
+		</FieldContainer>
+		<FieldContainer Name="InputNodes">
+			<Field Name="Effect" Value="1902" />
+			<Field Name="Model" Value="1908" />
+			<Field Name="Blend State" Value="1914" />
+			<Field Name="Depth State" Value="1921" />
+			<Field Name="Rasterizer State" Value="1928" />
+			<Field Name="VariablesStart" Value="1890" />
+			<Field Name="BaseCol (Float4)" Value="2027" />
+			<Field Name="Tex (Tex2D)" Value="2034" />
+			<Field Name="ColorInputStart" Value="1896" />
+			<Field Name="ClearColor0" Value="2020" />
+		</FieldContainer>
+	</ClassInstance>
+	<ClassInstance ClassName="EditorEffectNode" InstanceID="1525">
+		<Field Name="Position" Value="386.348;194.074" />
+		<Field Name="ContentType" Value="Effect" />
+		<Field Name="EffectPath" Value="Effects/HW11.fx" />
+		<FieldContainer Name="OutputNodes">
+			<Field Name="Effect" Value="1902" />
+		</FieldContainer>
+		<FieldContainer Name="InputNodes" />
+	</ClassInstance>
+	<ClassInstance ClassName="EditorPrimitiveNode" InstanceID="1188">
+		<Field Name="Position" Value="157.351;64.4139" />
+		<Field Name="ContentType" Value="None" />
+		<Field Name="Generator" Value="2" />
+		<FieldContainer Name="OutputNodes">
+			<Field Name="Model" Value="1908" />
+		</FieldContainer>
+		<FieldContainer Name="InputNodes" />
+	</ClassInstance>
+	<ClassInstance ClassName="EditorColorNode" InstanceID="2265">
+		<Field Name="Position" Value="-63.811;164.347" />
+		<Field Name="ContentType" Value="None" />
+		<Field Name="Color" Value="1;0;0;1" />
+		<FieldContainer Name="OutputNodes">
+			<Field Name="Color" Value="2027" />
+		</FieldContainer>
+		<FieldContainer Name="InputNodes" />
+	</ClassInstance>
+	<ClassInstance ClassName="EditorTextureNode" InstanceID="2798">
+		<Field Name="Position" Value="145.655;523.957" />
+		<Field Name="ContentType" Value="Texture" />
+		<Field Name="TexturePath" Value="Textures/11.7.b-1.png" />
+		<FieldContainer Name="OutputNodes">
+			<Field Name="Texture" Value="2034" />
+		</FieldContainer>
+		<FieldContainer Name="InputNodes" />
+	</ClassInstance>
+	<ClassInstance ClassName="EditorColorTargetOutputNode" InstanceID="3063">
+		<Field Name="Position" Value="1045.77;456.102" />
+		<Field Name="ContentType" Value="None" />
+		<Field Name="NodeSize" Value="286;311" />
+		<FieldContainer Name="OutputNodes" />
+		<FieldContainer Name="InputNodes">
+			<Field Name="Target" Value="3076" />
+		</FieldContainer>
+	</ClassInstance>
+</Project>
