@@ -97,6 +97,18 @@ VS_OUT VSSpot(VS_IN In)
 
     return Out;
 }
+VS_OUT VSDir(VS_IN In)
+{
+    VS_OUT Out = (VS_OUT)0;
+    matrix WorldViewProj = mul(mul(World, View), Projection);
+
+    Out.Pos = mul(In.ObjectPos, WorldViewProj);
+    Out.TexCoord = GetUV(In.TexCoord);
+    Out.Normal = normalize((mul(float4(In.Normal, 1.0f), World)).xyz);
+    Out.WorldPos = mul(In.ObjectPos, World).xyz;
+
+    return Out;
+}
 // Pixel Shader:
 float4 PSPoint(VS_OUT IN) : SV_TARGET
 {
@@ -144,14 +156,36 @@ float4 PSSpot(VS_OUT IN) : SV_TARGET
     float3 Specular = IN.Attenuation * GetScalarColorContribution(SpecCol, min(LightCoefficients.z, Col.w));
 
     float3 LightLookAt = normalize(IN.LightLookAt);
-    float SpotFactor = 0;
-    float SpotAngle = dot(LightDir, LightLookAt);
-    if (SpotAngle > 0)
-    {
-        SpotFactor = smoothstep(SpotInnerAngle, SpotOuterAngle, SpotAngle);
-    }
+    float SpotAngle = dot(LightLookAt, LightDir);
 
-    OUT.rgb = Ambient + SpotFactor*(Diffuse + Specular);
+    float SpotFactor = clamp(SpotAngle, 0, smoothstep(SpotInnerAngle, SpotOuterAngle, SpotAngle));
+
+    OUT.rgb = Ambient + SpotFactor * (Diffuse + Specular);
+    OUT.a = Col.a;
+
+    return OUT;
+}
+float4 PSDir(VS_OUT IN) : SV_TARGET
+{
+    float4 OUT = (float4)0;
+
+    float3 ViewDir = normalize(CameraPos - IN.WorldPos);
+    float3 LightDir = normalize(LightLookAt);
+
+    float3 Normal = normalize(IN.Normal);
+    float n_dot_l = dot(LightDir, Normal);
+
+    float3 HalfDir = normalize(LightDir + ViewDir);
+    float n_dot_h = dot(Normal, HalfDir);
+
+    float4 Col = ColTex.Sample(ColSampler, IN.TexCoord);
+    float4 LightCoefficients = lit(n_dot_l, n_dot_h, SpecPow);
+
+    float3 Ambient = GetVectorColorContribution(AmbientCol, Col.rgb);
+    float3 Diffuse = GetVectorColorContribution(LightCol, LightCoefficients.y * Col.rgb);
+    float3 Specular = GetScalarColorContribution(SpecCol, min(LightCoefficients.z, Col.w));
+
+    OUT.rgb = Ambient + Diffuse + Specular;
     OUT.a = Col.a;
 
     return OUT;
@@ -172,6 +206,15 @@ technique11 SpotLightTechnique
     {
         SetVertexShader(CompileShader(vs_5_0, VSSpot()));
         SetPixelShader(CompileShader(ps_5_0, PSSpot()));
+        SetRasterizerState(DisableCulling);
+    }
+}
+technique11 DirLightTechnique
+{
+    pass P0
+    {
+        SetVertexShader(CompileShader(vs_5_0, VSDir()));
+        SetPixelShader(CompileShader(ps_5_0, PSDir()));
         SetRasterizerState(DisableCulling);
     }
 }
