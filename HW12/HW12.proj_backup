@@ -2,52 +2,273 @@
 <Project ExporterVersion="0.1">
 	<ClassInstance ClassName="ProjectProperties" InstanceID="0">
 		<Field Name="GraphicsModule" Value="DirectX11" />
-		<Field Name="CameraPosition" Value="415;249" />
+		<Field Name="CameraPosition" Value="469.967;12.1794" />
 	</ClassInstance>
-	<ClassInstance ClassName="EditorDrawNode" InstanceID="1178">
-		<Field Name="Position" Value="808;318" />
+	<ClassInstance ClassName="EditorFloatSliderNode" InstanceID="28760">
+		<Field Name="Position" Value="-618.499;178.176" />
 		<Field Name="ContentType" Value="None" />
-		<Field Name="OutputCount" Value="0" />
-		<Field Name="Pass" Value="0" />
-		<Field Name="Technique" Value="0" />
-		<FieldContainer Name="OutputNodes" />
-		<FieldContainer Name="InputNodes">
-			<Field Name="Effect" Value="1203" />
-			<Field Name="Model" Value="1209" />
-			<Field Name="Blend State" Value="1215" />
-			<Field Name="Depth State" Value="1222" />
-			<Field Name="Rasterizer State" Value="1229" />
-			<Field Name="VariablesStart" Value="1191" />
-			<Field Name="ColorInputStart" Value="1197" />
-		</FieldContainer>
-	</ClassInstance>
-	<ClassInstance ClassName="EditorColorTargetOutputNode" InstanceID="1512">
-		<Field Name="Position" Value="1292;412" />
-		<Field Name="ContentType" Value="None" />
-		<Field Name="NodeSize" Value="286;311" />
-		<FieldContainer Name="OutputNodes" />
-		<FieldContainer Name="InputNodes">
-			<Field Name="Target" Value="1525" />
-		</FieldContainer>
-	</ClassInstance>
-	<ClassInstance ClassName="EditorPrimitiveNode" InstanceID="1980">
-		<Field Name="Position" Value="334;-8" />
-		<Field Name="ContentType" Value="None" />
-		<Field Name="Generator" Value="1" />
-		<Field Name="SegmentsLon" Value="22" />
-		<Field Name="SegmentsLat" Value="22" />
+		<Field Name="SliderValue" Value="-20" />
+		<Field Name="MinValue" Value="-20" />
+		<Field Name="MaxValue" Value="20" />
 		<FieldContainer Name="OutputNodes">
-			<Field Name="Model" Value="1209" />
+			<Field Name="Value" Value="28611" />
 		</FieldContainer>
 		<FieldContainer Name="InputNodes" />
 	</ClassInstance>
-	<ClassInstance ClassName="EditorEffectNode" InstanceID="2541">
+	<ClassInstance ClassName="EditorVector3Node" InstanceID="28598">
+		<Field Name="Position" Value="-301.497;296.473" />
+		<Field Name="ContentType" Value="None" />
+		<Field Name="ElementCount" Value="3" />
+		<Field Name="Element0" Value="-20" />
+		<Field Name="Element1" Value="-2.86" />
+		<Field Name="Element2" Value="3.36" />
+		<FieldContainer Name="OutputNodes">
+			<Field Name="" Value="29485" />
+		</FieldContainer>
+		<FieldContainer Name="InputNodes">
+			<Field Name="X" Value="28611" />
+			<Field Name="Y" Value="28626" />
+			<Field Name="Z" Value="28641" />
+		</FieldContainer>
+	</ClassInstance>
+	<ClassInstance ClassName="EditorFloatSliderNode" InstanceID="28809">
+		<Field Name="Position" Value="-622.731;405.627" />
+		<Field Name="ContentType" Value="None" />
+		<Field Name="SliderValue" Value="3.36" />
+		<Field Name="MinValue" Value="-20" />
+		<Field Name="MaxValue" Value="20" />
+		<FieldContainer Name="OutputNodes">
+			<Field Name="Value" Value="28641" />
+		</FieldContainer>
+		<FieldContainer Name="InputNodes" />
+	</ClassInstance>
+	<ClassInstance ClassName="EditorFloatSliderNode" InstanceID="28858">
+		<Field Name="Position" Value="-624.847;293.488" />
+		<Field Name="ContentType" Value="None" />
+		<Field Name="SliderValue" Value="-2.86" />
+		<Field Name="MinValue" Value="-20" />
+		<Field Name="MaxValue" Value="20" />
+		<FieldContainer Name="OutputNodes">
+			<Field Name="Value" Value="28626" />
+		</FieldContainer>
+		<FieldContainer Name="InputNodes" />
+	</ClassInstance>
+	<ClassInstance ClassName="EditorTextureNode" InstanceID="28146">
+		<Field Name="Position" Value="450.468;891.568" />
+		<Field Name="ContentType" Value="Texture" />
+		<Field Name="TexturePath" Value="Textures/TCom_Brick_CinderblocksPainted2_512_albedo.png" />
+		<FieldContainer Name="OutputNodes">
+			<Field Name="Texture" Value="29541" />
+		</FieldContainer>
+		<FieldContainer Name="InputNodes" />
+	</ClassInstance>
+	<ClassInstance ClassName="EditorColorNode" InstanceID="28272">
+		<Field Name="Position" Value="-110.736;642.987" />
+		<Field Name="ContentType" Value="None" />
+		<Field Name="Color" Value="1;1;1;0.43" />
+		<FieldContainer Name="OutputNodes">
+			<Field Name="Color" Value="29527" />
+		</FieldContainer>
+		<FieldContainer Name="InputNodes" />
+	</ClassInstance>
+	<ClassInstance ClassName="EditorColorNode" InstanceID="28357">
+		<Field Name="Position" Value="-29.6507;-4.5895" />
+		<Field Name="ContentType" Value="None" />
+		<Field Name="Color" Value="1;1;1;0.32" />
+		<FieldContainer Name="OutputNodes">
+			<Field Name="Color" Value="29471" />
+		</FieldContainer>
+		<FieldContainer Name="InputNodes" />
+	</ClassInstance>
+	<ClassInstance ClassName="EditorColorNode" InstanceID="28187">
+		<Field Name="Position" Value="-19.0134;315.905" />
+		<Field Name="ContentType" Value="None" />
+		<Field Name="Color" Value="1;1;1;1" />
+		<FieldContainer Name="OutputNodes">
+			<Field Name="Color" Value="29478" />
+		</FieldContainer>
+		<FieldContainer Name="InputNodes" />
+	</ClassInstance>
+	<ClassInstance ClassName="EditorDrawNode" InstanceID="29020">
+		<Field Name="Position" Value="808;318" />
+		<Field Name="ContentType" Value="None" />
+		<Field Name="OutputCount" Value="1" />
+		<Field Name="ColorOutput0" Value="4" />
+		<Field Name="Pass" Value="0" />
+		<Field Name="Technique" Value="1" />
+		<FieldContainer Name="OutputNodes">
+			<Field Name="SV_TARGET0" Value="29403" />
+		</FieldContainer>
+		<FieldContainer Name="InputNodes">
+			<Field Name="Effect" Value="29045" />
+			<Field Name="Model" Value="29051" />
+			<Field Name="Blend State" Value="29057" />
+			<Field Name="Depth State" Value="29064" />
+			<Field Name="Rasterizer State" Value="29071" />
+			<Field Name="VariablesStart" Value="29033" />
+			<Field Name="World (Float4x4)" Value="29450" />
+			<Field Name="View (Float4x4)" Value="29457" />
+			<Field Name="Projection (Float4x4)" Value="29464" />
+			<Field Name="AmbientCol (Float4)" Value="29471" />
+			<Field Name="LightCol (Float4)" Value="29478" />
+			<Field Name="LightPos (Float3)" Value="29485" />
+			<Field Name="LightLookAt (Float3)" Value="29492" />
+			<Field Name="CameraPos (Float3)" Value="29499" />
+			<Field Name="LightRad (Float)" Value="29506" />
+			<Field Name="SpotInnerAngle (Float)" Value="29513" />
+			<Field Name="SpotOuterAngle (Float)" Value="29520" />
+			<Field Name="SpecCol (Float4)" Value="29527" />
+			<Field Name="SpecPow (Float)" Value="29534" />
+			<Field Name="ColTex (Tex2D)" Value="29541" />
+			<Field Name="ColorInputStart" Value="29039" />
+			<Field Name="ClearColor0" Value="29443" />
+		</FieldContainer>
+	</ClassInstance>
+	<ClassInstance ClassName="EditorRasterizerStateNode" InstanceID="28442">
+		<Field Name="Position" Value="560.264;392.987" />
+		<Field Name="ContentType" Value="None" />
+		<Field Name="CullMode" Value="None" />
+		<Field Name="FillMode" Value="Wireframe" />
+		<FieldContainer Name="OutputNodes">
+			<Field Name="" Value="29071" />
+		</FieldContainer>
+		<FieldContainer Name="InputNodes" />
+	</ClassInstance>
+	<ClassInstance ClassName="EditorEffectNode" InstanceID="28100">
 		<Field Name="Position" Value="554;229" />
 		<Field Name="ContentType" Value="Effect" />
 		<Field Name="EffectPath" Value="Effects/HW12.fx" />
 		<FieldContainer Name="OutputNodes">
-			<Field Name="Effect" Value="1203" />
+			<Field Name="Effect" Value="29045" />
 		</FieldContainer>
 		<FieldContainer Name="InputNodes" />
+	</ClassInstance>
+	<ClassInstance ClassName="EditorFloatSliderNode" InstanceID="29341">
+		<Field Name="Position" Value="124.947;789.304" />
+		<Field Name="ContentType" Value="None" />
+		<Field Name="SliderValue" Value="0.61" />
+		<Field Name="MinValue" Value="0" />
+		<Field Name="MaxValue" Value="1" />
+		<FieldContainer Name="OutputNodes">
+			<Field Name="Value" Value="29520" />
+		</FieldContainer>
+		<FieldContainer Name="InputNodes" />
+	</ClassInstance>
+	<ClassInstance ClassName="EditorFloatSliderNode" InstanceID="29292">
+		<Field Name="Position" Value="518.792;788.25" />
+		<Field Name="ContentType" Value="None" />
+		<Field Name="SliderValue" Value="41.06" />
+		<Field Name="MinValue" Value="0" />
+		<Field Name="MaxValue" Value="100" />
+		<FieldContainer Name="OutputNodes">
+			<Field Name="Value" Value="29534" />
+		</FieldContainer>
+		<FieldContainer Name="InputNodes" />
+	</ClassInstance>
+	<ClassInstance ClassName="EditorFloatSliderNode" InstanceID="28711">
+		<Field Name="Position" Value="168.264;695.987" />
+		<Field Name="ContentType" Value="None" />
+		<Field Name="SliderValue" Value="0.15" />
+		<Field Name="MinValue" Value="0" />
+		<Field Name="MaxValue" Value="1" />
+		<FieldContainer Name="OutputNodes">
+			<Field Name="Value" Value="29513" />
+		</FieldContainer>
+		<FieldContainer Name="InputNodes" />
+	</ClassInstance>
+	<ClassInstance ClassName="EditorFloatSliderNode" InstanceID="28662">
+		<Field Name="Position" Value="283.425;562.367" />
+		<Field Name="ContentType" Value="None" />
+		<Field Name="SliderValue" Value="2.04" />
+		<Field Name="MinValue" Value="0" />
+		<Field Name="MaxValue" Value="10" />
+		<FieldContainer Name="OutputNodes">
+			<Field Name="Value" Value="29506" />
+		</FieldContainer>
+		<FieldContainer Name="InputNodes" />
+	</ClassInstance>
+	<ClassInstance ClassName="EditorVector3Node" InstanceID="29179">
+		<Field Name="Position" Value="-319.177;615.48" />
+		<Field Name="ContentType" Value="None" />
+		<Field Name="ElementCount" Value="3" />
+		<Field Name="Element0" Value="4.07656" />
+		<Field Name="Element1" Value="1.59168" />
+		<Field Name="Element2" Value="-0.0354424" />
+		<FieldContainer Name="OutputNodes">
+			<Field Name="" Value="29492" />
+		</FieldContainer>
+		<FieldContainer Name="InputNodes">
+			<Field Name="X" Value="29192" />
+			<Field Name="Y" Value="29207" />
+			<Field Name="Z" Value="29222" />
+		</FieldContainer>
+	</ClassInstance>
+	<ClassInstance ClassName="EditorFloatSliderNode" InstanceID="29548">
+		<Field Name="Position" Value="-658.902;769.524" />
+		<Field Name="ContentType" Value="None" />
+		<Field Name="SliderValue" Value="-0.04" />
+		<Field Name="MinValue" Value="-10" />
+		<Field Name="MaxValue" Value="10" />
+		<FieldContainer Name="OutputNodes">
+			<Field Name="Value" Value="29222" />
+		</FieldContainer>
+		<FieldContainer Name="InputNodes" />
+	</ClassInstance>
+	<ClassInstance ClassName="EditorFloatSliderNode" InstanceID="29646">
+		<Field Name="Position" Value="-631.892;641.839" />
+		<Field Name="ContentType" Value="None" />
+		<Field Name="SliderValue" Value="1.59" />
+		<Field Name="MinValue" Value="-10" />
+		<Field Name="MaxValue" Value="10" />
+		<FieldContainer Name="OutputNodes">
+			<Field Name="Value" Value="29207" />
+		</FieldContainer>
+		<FieldContainer Name="InputNodes" />
+	</ClassInstance>
+	<ClassInstance ClassName="EditorFloatSliderNode" InstanceID="29597">
+		<Field Name="Position" Value="-649.08;535.026" />
+		<Field Name="ContentType" Value="None" />
+		<Field Name="SliderValue" Value="4.08" />
+		<Field Name="MinValue" Value="-10" />
+		<Field Name="MaxValue" Value="10" />
+		<FieldContainer Name="OutputNodes">
+			<Field Name="Value" Value="29192" />
+		</FieldContainer>
+		<FieldContainer Name="InputNodes" />
+	</ClassInstance>
+	<ClassInstance ClassName="EditorPrimitiveNode" InstanceID="28907">
+		<Field Name="Position" Value="107.686;-432.957" />
+		<Field Name="ContentType" Value="None" />
+		<Field Name="Generator" Value="1" />
+		<Field Name="SegmentsLon" Value="23" />
+		<Field Name="SegmentsLat" Value="23" />
+		<FieldContainer Name="OutputNodes">
+			<Field Name="Model" Value="29051" />
+		</FieldContainer>
+		<FieldContainer Name="InputNodes" />
+	</ClassInstance>
+	<ClassInstance ClassName="EditorCameraNode" InstanceID="28496">
+		<Field Name="Position" Value="298.979;101.453" />
+		<Field Name="ContentType" Value="None" />
+		<FieldContainer Name="OutputNodes">
+			<Field Name="View" Value="29457" />
+			<Field Name="Projection" Value="29464" />
+			<Field Name="Position" Value="29499" />
+			<Field Name="Look Vector" Value="" />
+			<Field Name="Side Vector" Value="" />
+			<Field Name="Up Vector" Value="" />
+			<Field Name="Near Plane" Value="" />
+			<Field Name="Far Plane" Value="" />
+		</FieldContainer>
+		<FieldContainer Name="InputNodes" />
+	</ClassInstance>
+	<ClassInstance ClassName="EditorColorTargetOutputNode" InstanceID="29390">
+		<Field Name="Position" Value="1285;552" />
+		<Field Name="ContentType" Value="None" />
+		<Field Name="NodeSize" Value="286;311" />
+		<FieldContainer Name="OutputNodes" />
+		<FieldContainer Name="InputNodes">
+			<Field Name="Target" Value="29403" />
+		</FieldContainer>
 	</ClassInstance>
 </Project>

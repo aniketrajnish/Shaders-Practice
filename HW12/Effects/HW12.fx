@@ -18,7 +18,7 @@ float3 GetScalarColorContribution(float4 light, float color)
 // Render States:
 RasterizerState DisableCulling
 {
-    CullMode = None;
+    CullMode = NONE;
 };
 // Texture Mapping:
 Texture2D ColTex;
@@ -60,9 +60,9 @@ struct VS_OUT
     float2 TexCoord : TEXCOORD0;
     float3 LightDir : TEXCOORD1;
     float3 WorldPos : TEXCOORD2;
-    float3 ViewDir : TEXCOORD3;
-    float Attenuation : TEXCOORD4;
-    float LightLookAt : TEXCOORD5;
+    float3 LightLookAt : TEXCOORD3;
+    float3 ViewDir : TEXCOORD4;
+    float Attenuation : TEXCOORD5;
 };
 // Vertex Shader:
 VS_OUT VSPoint(VS_IN In)
@@ -72,11 +72,11 @@ VS_OUT VSPoint(VS_IN In)
 
     Out.Pos = mul(In.ObjectPos, WorldViewProj);
     Out.TexCoord = GetUV(In.TexCoord);
-    Out.Normal = normalize(mul(In.Normal, World)).xyz;
+    Out.Normal = normalize((mul(float4(In.Normal, 1.0f), World)).xyz);
     Out.WorldPos = mul(In.ObjectPos, World).xyz;
     
     float3 LightDir = normalize(LightPos - Out.WorldPos);
-    Out.Attenuation = saturate(1 - length(Out.WorldPos - LightDir) / LightRad);
+    Out.Attenuation = saturate(1 - length(LightDir) / LightRad);
     Out.LightDir = LightDir;
 
     return Out;
@@ -88,66 +88,71 @@ VS_OUT VSSpot(VS_IN In)
 
     Out.Pos = mul(In.ObjectPos, WorldViewProj);
     Out.TexCoord = GetUV(In.TexCoord);
-    Out.Normal = normalize(mul(In.Normal, World)).xyz;
+    Out.Normal = normalize((mul(float4(In.Normal, 1.0f), World)).xyz);
     Out.WorldPos = mul(In.ObjectPos, World).xyz;
     
     float3 LightDir = normalize(LightPos - Out.WorldPos);
-    Out.Attenuation = saturate(1 - length(Out.WorldPos - LightDir) / LightRad);
+    Out.Attenuation = saturate(1 - length(LightDir) / LightRad);
     Out.LightLookAt = -LightLookAt;
 
     return Out;
 }
 // Pixel Shader:
-float4 PSPoint(VS_OUT In) : SV_TARGET
+float4 PSPoint(VS_OUT IN) : SV_TARGET
 {
     float4 OUT = (float4)0;
 
-    float3 LightDir = normalize(LightPos - In.WorldPos);
-    float3 ViewDir = normalize(CameraPos - In.WorldPos);
+    float3 LightDir = normalize(LightPos - IN.WorldPos);
+    float3 ViewDir = normalize(CameraPos - IN.WorldPos);
 
-    float3 Normal = normalize(In.Normal);
-    float n_dot_h = dot(lightDir, normal);
+    float3 Normal = normalize(IN.Normal);
+    float n_dot_l = dot(LightDir, Normal);
 
     float3 HalfDir = normalize(LightDir + ViewDir);
-    float3 n_dot_h = dot(Normal, HalfDir);
+    float n_dot_h = dot(Normal, HalfDir);
 
-    float4 Col = ColTex.Sample(ColSampler, In.TexCoord);
+    float4 Col = ColTex.Sample(ColSampler, IN.TexCoord);
     float4 LightCoefficients = lit(n_dot_l, n_dot_h, SpecPow);
 
     float3 Ambient = GetVectorColorContribution(AmbientCol, Col.rgb);
-    float3 Diffuse = In.Attenuation * GetVectorColorContribution(LightCol, LightCoefficients.y * Col.rgb);
-    float3 Specular = In.Attenuation * GetScalarColorContribution(SpecCol, min(LightCoefficients.z, Col.w));
+    float3 Diffuse = IN.Attenuation * GetVectorColorContribution(LightCol, LightCoefficients.y * Col.rgb);
+    float3 Specular = IN.Attenuation * GetScalarColorContribution(SpecCol, min(LightCoefficients.z, Col.w));
 
-    Out.rgb = Ambient + Diffuse + Specular;
-    Out.a = Col.a;
+    OUT.rgb = Ambient + Diffuse + Specular;
+    OUT.a = Col.a;
 
     return OUT;
 }
-float4 PSSpot(VS_OUT In) : SV_TARGET
+float4 PSSpot(VS_OUT IN) : SV_TARGET
 {
     float4 OUT = (float4)0;
 
-    float3 LightDir = normalize(LightPos - In.WorldPos);
-    float3 ViewDir = normalize(CameraPos - In.WorldPos);
+    float3 LightDir = normalize(LightPos - IN.WorldPos);
+    float3 ViewDir = normalize(CameraPos - IN.WorldPos);
 
-    float3 Normal = normalize(In.Normal);
-    float n_dot_h = dot(lightDir, normal);
+    float3 Normal = normalize(IN.Normal);
+    float n_dot_l = dot(LightDir, Normal);
 
     float3 HalfDir = normalize(LightDir + ViewDir);
-    float3 n_dot_h = dot(Normal, HalfDir);
+    float n_dot_h = dot(Normal, HalfDir);
 
-    float4 Col = ColTex.Sample(ColSampler, In.TexCoord);
+    float4 Col = ColTex.Sample(ColSampler, IN.TexCoord);
     float4 LightCoefficients = lit(n_dot_l, n_dot_h, SpecPow);
 
     float3 Ambient = GetVectorColorContribution(AmbientCol, Col.rgb);
-    float3 Diffuse = In.Attenuation * GetVectorColorContribution(LightCol, LightCoefficients.y * Col.rgb);
-    float3 Specular = In.Attenuation * GetScalarColorContribution(SpecCol, min(LightCoefficients.z, Col.w));
+    float3 Diffuse = IN.Attenuation * GetVectorColorContribution(LightCol, LightCoefficients.y * Col.rgb);
+    float3 Specular = IN.Attenuation * GetScalarColorContribution(SpecCol, min(LightCoefficients.z, Col.w));
 
-    float3 LightLookAt = normalize(In.LightLookAt);
-    float SpotFactor = smoothstep(SpotOuterAngle, SpotInnerAngle, max(0, dot(LightDir, LightLookAt)));
+    float3 LightLookAt = normalize(IN.LightLookAt);
+    float SpotFactor = 0;
+    float SpotAngle = dot(LightDir, LightLookAt);
+    if (SpotAngle > 0)
+    {
+        SpotFactor = smoothstep(SpotInnerAngle, SpotOuterAngle, SpotAngle);
+    }
 
-    Out.rgb = Ambient + SpotFactor*(Diffuse + Specular);
-    Out.a = Col.a;
+    OUT.rgb = Ambient + SpotFactor*(Diffuse + Specular);
+    OUT.a = Col.a;
 
     return OUT;
 }
