@@ -36,6 +36,7 @@ cbuffer CBufferPerFrame
     float3 LightPos;
     float3 LightLookAt;
     float3 CameraPos;
+    float Time;
     float LightRad;
     float SpotInnerAngle;
     float SpotOuterAngle;
@@ -94,6 +95,22 @@ VS_OUT VSSpot(VS_IN In)
     float3 LightDir = normalize(LightPos - Out.WorldPos);
     Out.Attenuation = saturate(1 - length(LightDir) / LightRad);
     Out.LightLookAt = -LightLookAt;
+
+    return Out;
+}
+VS_OUT VSSpotCicle(VS_IN In)
+{
+    VS_OUT Out = (VS_OUT)0;
+    matrix WorldViewProj = mul(mul(World, View), Projection);
+
+    Out.Pos = mul(In.ObjectPos, WorldViewProj);
+    Out.TexCoord = GetUV(In.TexCoord);
+    Out.Normal = normalize((mul(float4(In.Normal, 1.0f), World)).xyz);
+    Out.WorldPos = mul(In.ObjectPos, World).xyz;
+    
+    float3 LightDir = normalize(LightPos - Out.WorldPos);
+    Out.Attenuation = saturate(1 - length(LightDir) / LightRad);
+    Out.LightLookAt = float3(sin(Time), cos(Time), 0);
 
     return Out;
 }
@@ -158,7 +175,7 @@ float4 PSSpot(VS_OUT IN) : SV_TARGET
     float3 LightLookAt = normalize(IN.LightLookAt);
     float SpotAngle = dot(LightLookAt, LightDir);
 
-    float SpotFactor = clamp(SpotAngle, 0, smoothstep(SpotInnerAngle, SpotOuterAngle, SpotAngle));
+    float SpotFactor = clamp(SpotAngle, 0, smoothstep(SpotInnerAngle, SpotOuterAngle, SpotAngle)); // using clam to avoid bools
 
     OUT.rgb = Ambient + SpotFactor * (Diffuse + Specular);
     OUT.a = Col.a;
@@ -182,8 +199,8 @@ float4 PSDir(VS_OUT IN) : SV_TARGET
     float4 LightCoefficients = lit(n_dot_l, n_dot_h, SpecPow);
 
     float3 Ambient = GetVectorColorContribution(AmbientCol, Col.rgb);
-    float3 Diffuse = GetVectorColorContribution(LightCol, LightCoefficients.y * Col.rgb);
-    float3 Specular = GetScalarColorContribution(SpecCol, min(LightCoefficients.z, Col.w));
+    float3 Diffuse = GetVectorColorContribution(LightCol, LightCoefficients.y * Col.rgb); // no attenuation for directional light
+    float3 Specular = GetScalarColorContribution(SpecCol, min(LightCoefficients.z, Col.w)); // no attenuation for directional light
 
     OUT.rgb = Ambient + Diffuse + Specular;
     OUT.a = Col.a;
@@ -218,5 +235,13 @@ technique11 DirLightTechnique
         SetRasterizerState(DisableCulling);
     }
 }
-
-
+technique11 SpotCircleLightTechnique
+{
+    pass P0
+    {
+        SetVertexShader(CompileShader(vs_5_0, VSSpotCicle()));
+        SetPixelShader(CompileShader(ps_5_0, PSSpot()));
+        SetRasterizerState(DisableCulling);
+    }
+}
+ 
