@@ -92,7 +92,7 @@ VS_OUT VSSpot(VS_IN In)
     float3 LightDir = normalize(LightPos - Out.WorldPos);
     Out.Attenuation = saturate(1 - length(LightDir) / LightRad);
     Out.LightLookAt = normalize(-LightLookAt); // why do we negate this, Chris? 
-                                              // The positive one did not very good on screen, I'd like to know why
+                                              // I did see that the positive one did not look very good on screen, I'd like to know why
     return Out;
 }
 VS_OUT VSSpotCicle(VS_IN In)
