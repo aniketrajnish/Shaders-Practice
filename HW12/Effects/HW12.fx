@@ -59,16 +59,14 @@ struct VS_OUT
     float4 Pos : SV_POSITION;
     float3 Normal : NORMAL;
     float2 TexCoord : TEXCOORD0;
-    float3 LightDir : TEXCOORD1;
-    float3 WorldPos : TEXCOORD2;
-    float3 LightLookAt : TEXCOORD3;
-    float3 ViewDir : TEXCOORD4;
-    float Attenuation : TEXCOORD5;
+    float3 WorldPos : TEXCOORD1;
+    float3 LightLookAt : TEXCOORD2;
+    float Attenuation : TEXCOORD3;
 };
 // Vertex Shader:
 VS_OUT VSPoint(VS_IN In)
 {
-    VS_OUT Out = (VS_OUT)0;
+    VS_OUT Out = (VS_OUT) 0;
     matrix WorldViewProj = mul(mul(World, View), Projection);
 
     Out.Pos = mul(In.ObjectPos, WorldViewProj);
@@ -78,13 +76,12 @@ VS_OUT VSPoint(VS_IN In)
     
     float3 LightDir = normalize(LightPos - Out.WorldPos);
     Out.Attenuation = saturate(1 - length(LightDir) / LightRad);
-    Out.LightDir = LightDir;
 
     return Out;
 }
 VS_OUT VSSpot(VS_IN In)
 {
-    VS_OUT Out = (VS_OUT)0;
+    VS_OUT Out = (VS_OUT) 0;
     matrix WorldViewProj = mul(mul(World, View), Projection);
 
     Out.Pos = mul(In.ObjectPos, WorldViewProj);
@@ -94,13 +91,13 @@ VS_OUT VSSpot(VS_IN In)
     
     float3 LightDir = normalize(LightPos - Out.WorldPos);
     Out.Attenuation = saturate(1 - length(LightDir) / LightRad);
-    Out.LightLookAt = -LightLookAt;
-
+    Out.LightLookAt = normalize(-LightLookAt); // why do we negate this, Chris? 
+                                              // The positive one did not very good on screen, I'd like to know why
     return Out;
 }
 VS_OUT VSSpotCicle(VS_IN In)
 {
-    VS_OUT Out = (VS_OUT)0;
+    VS_OUT Out = (VS_OUT) 0;
     matrix WorldViewProj = mul(mul(World, View), Projection);
 
     Out.Pos = mul(In.ObjectPos, WorldViewProj);
@@ -110,13 +107,13 @@ VS_OUT VSSpotCicle(VS_IN In)
     
     float3 LightDir = normalize(LightPos - Out.WorldPos);
     Out.Attenuation = saturate(1 - length(LightDir) / LightRad);
-    Out.LightLookAt = float3(sin(Time), cos(Time), 0);
+    Out.LightLookAt = float3(sin(Time), cos(Time), 0); // Move in circles
 
     return Out;
 }
 VS_OUT VSDir(VS_IN In)
 {
-    VS_OUT Out = (VS_OUT)0;
+    VS_OUT Out = (VS_OUT) 0;
     matrix WorldViewProj = mul(mul(World, View), Projection);
 
     Out.Pos = mul(In.ObjectPos, WorldViewProj);
@@ -129,7 +126,7 @@ VS_OUT VSDir(VS_IN In)
 // Pixel Shader:
 float4 PSPoint(VS_OUT IN) : SV_TARGET
 {
-    float4 OUT = (float4)0;
+    float4 OUT = (float4) 0;
 
     float3 LightDir = normalize(LightPos - IN.WorldPos);
     float3 ViewDir = normalize(CameraPos - IN.WorldPos);
@@ -154,7 +151,7 @@ float4 PSPoint(VS_OUT IN) : SV_TARGET
 }
 float4 PSSpot(VS_OUT IN) : SV_TARGET
 {
-    float4 OUT = (float4)0;
+    float4 OUT = (float4) 0;
 
     float3 LightDir = normalize(LightPos - IN.WorldPos);
     float3 ViewDir = normalize(CameraPos - IN.WorldPos);
@@ -171,9 +168,8 @@ float4 PSSpot(VS_OUT IN) : SV_TARGET
     float3 Ambient = GetVectorColorContribution(AmbientCol, Col.rgb);
     float3 Diffuse = IN.Attenuation * GetVectorColorContribution(LightCol, LightCoefficients.y * Col.rgb);
     float3 Specular = IN.Attenuation * GetScalarColorContribution(SpecCol, min(LightCoefficients.z, Col.w));
-
-    float3 LightLookAt = normalize(IN.LightLookAt);
-    float SpotAngle = dot(LightLookAt, LightDir);
+    
+    float SpotAngle = dot(IN.LightLookAt, LightDir);
 
     float SpotFactor = clamp(SpotAngle, 0, smoothstep(SpotInnerAngle, SpotOuterAngle, SpotAngle)); // using clam to avoid bools
 
@@ -184,7 +180,7 @@ float4 PSSpot(VS_OUT IN) : SV_TARGET
 }
 float4 PSDir(VS_OUT IN) : SV_TARGET
 {
-    float4 OUT = (float4)0;
+    float4 OUT = (float4) 0;
 
     float3 ViewDir = normalize(CameraPos - IN.WorldPos);
     float3 LightDir = normalize(LightLookAt);
@@ -244,4 +240,3 @@ technique11 SpotCircleLightTechnique
         SetRasterizerState(DisableCulling);
     }
 }
- 
